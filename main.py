@@ -11,21 +11,29 @@ SLACK_BOT_TOKEN = os.environ.get("SLACK_BOT_TOKEN")
 SLACK_APP_TOKEN = os.environ.get("SLACK_APP_TOKEN")
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 
-app = App(token=SLACK_BOT_TOKEN)
+slack = App(token=SLACK_BOT_TOKEN)
+open_ai = OpenAI(api_key=OPENAI_API_KEY, temperature=0.5)
 
-template = "You are an assistant. Echo the following message: {text}"
-prompt = PromptTemplate(input_variables=["text"], template=template)
+echo_template = "Echo the following message: {text}"
+echo_prompt = PromptTemplate(input_variables=["text"], template=echo_template)
 
-llm = OpenAI(api_key=OPENAI_API_KEY, temperature=0.5)
-
-@app.message("!echo")
+@slack.message("!echo")
 def handle_echo(message, say):
-    text = message.get("text", "")
-    # Format the prompt with the user's text
-    prompt_text = prompt.format(text=text)
-    result = llm(prompt_text)
-    say(result)
+    user_message = message.get("text", "")
+    promp_text = echo_prompt.format(text=user_message)
+    agent_response = open_ai(promp_text)
+    say(agent_response)
+
+reverse_template = "Reverse the order of words in the following message. Be sure not to skip any words after this: {text}"
+reverse_prompt = PromptTemplate(input_variables=["text"], template=reverse_template)
+
+@slack.message("!reverse")
+def handle_reverse(message, say):
+    user_message = message.get("text", "")
+    prompt_text = reverse_prompt.format(text=user_message)
+    agent_response = open_ai(prompt_text)
+    say(agent_response)
 
 if __name__ == "__main__":
-    handler = SocketModeHandler(app, SLACK_APP_TOKEN)
+    handler = SocketModeHandler(slack, SLACK_APP_TOKEN)
     handler.start()
