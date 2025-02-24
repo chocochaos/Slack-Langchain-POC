@@ -5,7 +5,7 @@ This is a proof of concept for collaborating with multiple AI agents on Slack.
 ## Set up the project
 
 1. `git clone` this repository
-2. Run `pip install slack_bolt langchain openai`
+2. Run `pip install -r requirements.txt`
 3. Run `source venv/bin/activate`
 4. Copy the `.env.example` file to `.env`. Follow the stepts below to get the necessary tokens.
 
@@ -44,3 +44,27 @@ This is a proof of concept for collaborating with multiple AI agents on Slack.
 2. Run `python main.py`.
 3. Invite the bot to a channel using `/invite @your-bot-name`.
 4. Interact with an agent by mentioning it in a message, prefixed with an `!`. For example, `Hello !echo, what's up?`.
+
+## Agent Configuration
+
+Each agent's behavior can be customized through a YAML configuration file located in its directory. For example, the Echo agent's configuration is in `src/agents/echo/config.yaml`.
+
+### Configuration Parameters
+
+- `agent_name`: The name used to invoke the agent in Slack (e.g., "echo" for `!echo`)
+- `prompt_template`: The template used to format the agent's instructions to the LLM
+- `temperature`: Controls the randomness of the LLM's responses (0.0 for deterministic, higher values for more creative responses)
+
+### Example Configuration
+
+```yaml
+# src/agents/echo/config.yaml
+agent_name: "echo"
+prompt_template: "Echo the following message: {text}"
+temperature: 0.5
+```
+
+To modify an agent's behavior:
+1. Locate its configuration file in `src/agents/config/`
+2. Adjust the parameters as needed
+3. Restart the application for changes to take effect

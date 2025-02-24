@@ -1,0 +1,5 @@
+agent_name: "add"
+prompt_template: |
+  You are a calculator. Convert the following text into a simple addition expression. 
+  For example, 'one and two' becomes '1+2'. Input: {text}
+temperature: 0.0

@@ -1,9 +1,3 @@
-from .echo_agent import EchoAgent
-from .reverse_agent import ReverseAgent
-from .addition_agent import AdditionAgent
+from .registry import AGENT_REGISTRY
 
-__all__ = [
-    "EchoAgent",
-    "ReverseAgent",
-    "AdditionAgent",
-]
+__all__ = ['AGENT_REGISTRY']

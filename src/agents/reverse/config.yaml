@@ -1,0 +1,3 @@
+agent_name: "reverse"
+prompt_template: "Reverse the order of words in the following message. Be sure not to skip any words after this: {text}"
+temperature: 0.2

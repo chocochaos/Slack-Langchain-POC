@@ -1,0 +1,3 @@
+agent_name: "echo"
+prompt_template: "Echo the following message: {text}"
+temperature: 0.5

@@ -1,15 +1,10 @@
 import re
-from .base_agent import BaseAgent
-from .registry import register_agent
+from ..base_agent import BaseAgent
+from ..registry import register_agent
 
 @register_agent
 class AdditionAgent(BaseAgent):
-    agent_name = "add"
-    prompt_template = (
-        "You are a calculator. Convert the following text into a simple addition expression. "
-        "For example, 'one and two' becomes '1+2'. Input: {text}"
-    )
-    temperature = 0.0  # Deterministic output
+    """Agent that handles addition operations."""
 
     def process(self, text):
         prompt_text = self.prompt.format(text=text)
