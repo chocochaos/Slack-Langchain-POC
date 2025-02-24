@@ -9,7 +9,7 @@ class AdditionAgent(BaseAgent):
     def process(self, text):
         prompt_text = self.prompt.format(text=text)
         # Use the LLM to generate an addition expression like "1+2"
-        expr = self.llm(prompt_text).strip()
+        expr = self.llm.invoke(prompt_text).content.strip()
         # Use a regex to extract two numbers separated by '+'
         match = re.match(r'\s*(\d+)\s*\+\s*(\d+)\s*', expr)
         if match:

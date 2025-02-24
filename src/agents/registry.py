@@ -9,3 +9,4 @@ def register_agent(cls):
 from .addition import AdditionAgent
 from .echo import EchoAgent
 from .reverse import ReverseAgent
+from .story import StoryAgent

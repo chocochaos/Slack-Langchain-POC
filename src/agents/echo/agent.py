@@ -7,4 +7,4 @@ class EchoAgent(BaseAgent):
 
     def process(self, text):
         prompt_text = self.prompt.format(text=text)
-        return self.llm(prompt_text)
+        return self.llm.invoke(prompt_text).content
